@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - horizontal_card_pager (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - horizontal_card_pager (from `.symlinks/plugins/horizontal_card_pager/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  horizontal_card_pager:
+    :path: ".symlinks/plugins/horizontal_card_pager/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  horizontal_card_pager: e3745d6cfb295812d734b34908c99a12518a183a
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.9.0
