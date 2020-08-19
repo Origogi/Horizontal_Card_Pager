@@ -39,6 +39,7 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
     controller.addListener(() {
       setState(() {
         currentPosition = controller.page;
+        print(currentPosition);
 
         if (widget.onPageChanged != null) {
           Future(() => widget.onPageChanged(currentPosition));
@@ -47,6 +48,22 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
     });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(child: CardListWidget(controller: controller));
+  }
+}
+
+class CardListWidget extends StatefulWidget {
+  final PageController controller;
+
+  CardListWidget({this.controller});
+
+  @override
+  _CardListWidgetState createState() => _CardListWidgetState();
+}
+
+class _CardListWidgetState extends State<CardListWidget> {
   List<Color> colorList = [
     Colors.black.withOpacity(0.5),
     Colors.red.withOpacity(0.5),
@@ -59,6 +76,19 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
   double cardMaxWidth = 0;
   double cardMaxHeight = 0;
   double viewWidth = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectedIndex = 2.0;
+
+    widget.controller.addListener(() {
+      setState(() {
+        selectedIndex = widget.controller.page;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,13 +117,25 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
         cardList.add(card);
       }
 
-      return Container(
-        height: cardMaxHeight,
-        color: Colors.black12,
-        child: Stack(
-          children: cardList,
+      return Stack(children: [
+        Container(
+          height: cardMaxHeight,
+          color: Colors.black12,
+          child: Stack(
+            children: cardList,
+          ),
         ),
-      );
+        Positioned.fill(
+          child: PageView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 5,
+            controller: widget.controller,
+            itemBuilder: (context, index) {
+              return Container();
+            },
+          ),
+        )
+      ]);
     });
   }
 
