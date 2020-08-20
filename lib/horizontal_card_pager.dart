@@ -202,11 +202,15 @@ class _CardListWidgetState extends State<CardListWidget> {
       return cardMaxWidth -
           cardMaxWidth * (1 / 5) -
           10 * ((diff - diff.floor()));
-    } else {
+    } else if (diff >= 2.0 && diff < 3.0) {
       final size = cardMaxWidth -
           cardMaxWidth * (1 / 5) -
           10 -
           5 * ((diff - diff.floor()));
+
+      return size > 0 ? size : 0;
+    } else {
+      final size = cardMaxWidth - cardMaxWidth * (1 / 5) - 15;
 
       return size > 0 ? size : 0;
     }
