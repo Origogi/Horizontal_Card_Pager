@@ -69,7 +69,9 @@ class _CardListWidgetState extends State<CardListWidget> {
     Colors.red.withOpacity(0.5),
     Colors.blue.withOpacity(0.5),
     Colors.amber.withOpacity(0.5),
-    Colors.cyan.withOpacity(0.5)
+    Colors.cyan.withOpacity(0.5),
+    Colors.indigo.withOpacity(0.5),
+    Colors.yellow.withOpacity(0.5)
   ];
 
   double selectedIndex = 2.0;
@@ -108,10 +110,13 @@ class _CardListWidgetState extends State<CardListWidget> {
             textDirection: TextDirection.ltr,
             top: getTopPositon(cardHeight, cardMaxHeight),
             start: getStartPosition(cardWidth, i),
-            child: Container(
-              color: colorList[i],
-              width: cardWidth,
-              height: cardHeight,
+            child: Opacity(
+              opacity: getOpacity(i),
+              child: Container(
+                color: colorList[i],
+                width: cardWidth,
+                height: cardHeight,
+              ),
             ));
 
         cardList.add(card);
@@ -128,7 +133,7 @@ class _CardListWidgetState extends State<CardListWidget> {
         Positioned.fill(
           child: PageView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 5,
+            itemCount: 7,
             controller: widget.controller,
             itemBuilder: (context, index) {
               return Container();
@@ -193,8 +198,8 @@ class _CardListWidgetState extends State<CardListWidget> {
     }
   }
 
-  double getCardSize(int currentIndex) {
-    double diff = (selectedIndex - currentIndex).abs();
+  double getCardSize(int cardIndex) {
+    double diff = (selectedIndex - cardIndex).abs();
 
     if (diff >= 0.0 && diff < 1.0) {
       return cardMaxWidth - cardMaxWidth * (1 / 5) * ((diff - diff.floor()));
@@ -213,6 +218,20 @@ class _CardListWidgetState extends State<CardListWidget> {
       final size = cardMaxWidth - cardMaxWidth * (1 / 5) - 15;
 
       return size > 0 ? size : 0;
+    }
+  }
+
+  double getOpacity(int cardIndex) {
+    double diff = (selectedIndex - cardIndex);
+
+    if (diff >= -2 && diff <= 2) {
+      return 1.0;
+    } else if (diff > -3 && diff < -2) {
+      return 3 - diff.abs();
+    } else if (diff > 2 && diff < 3) {
+      return 3 - diff.abs();
+    } else {
+      return 0;
     }
   }
 }
