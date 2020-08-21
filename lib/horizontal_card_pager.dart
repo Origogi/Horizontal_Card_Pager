@@ -50,14 +50,55 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(child: CardListWidget(controller: controller));
+    return LayoutBuilder(builder: (context, constraints) {
+      double viewWidth = constraints.maxWidth;
+
+      double cardMaxWidth = viewWidth / 5.0;
+      double cardMaxHeight = cardMaxWidth;
+
+      return GestureDetector(
+          onHorizontalDragEnd: (details) {
+            isScrolling = false;
+          },
+          onHorizontalDragStart: (details) {
+            isScrolling = true;
+          },
+          onTapUp: (details) {
+            // if ((currentPosition - currentPosition.floor()).abs() <= 0.15) {
+            //   int selectedIndex = onTapUp(context, constraints.maxHeight,
+            //       constraints.maxWidth, details);
+
+            //   if (selectedIndex == 2) {
+            //     if (widget.onSelectedItem != null) {
+            //       Future(() => widget.onSelectedItem(currentPosition.round()));
+            //     }
+            //   } else if (selectedIndex >= 0) {
+            //     int goToPage = currentPosition.toInt() + selectedIndex - 2;
+            //     controller.animateToPage(goToPage,
+            //         duration: Duration(milliseconds: 300),
+            //         curve: Curves.easeInOutExpo);
+            //   }
+            // }
+          },
+          child: CardListWidget(
+            controller: controller,
+            viewWidth: viewWidth,
+            cardMaxHeight: cardMaxHeight,
+            cardMaxWidth: cardMaxWidth,
+          ));
+    });
   }
 }
 
 class CardListWidget extends StatefulWidget {
   final PageController controller;
 
-  CardListWidget({this.controller});
+  final double cardMaxWidth;
+  final double cardMaxHeight;
+  final double viewWidth;
+
+  CardListWidget(
+      {this.controller, this.cardMaxHeight, this.cardMaxWidth, this.viewWidth});
 
   @override
   _CardListWidgetState createState() => _CardListWidgetState();
@@ -75,9 +116,6 @@ class _CardListWidgetState extends State<CardListWidget> {
   ];
 
   double selectedIndex = 2.0;
-  double cardMaxWidth = 0;
-  double cardMaxHeight = 0;
-  double viewWidth = 0;
 
   @override
   void initState() {
@@ -94,54 +132,46 @@ class _CardListWidgetState extends State<CardListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      viewWidth = constraints.maxWidth;
+    List<Widget> cardList = [];
 
-      cardMaxWidth = viewWidth / 5.0;
-      cardMaxHeight = cardMaxWidth;
+    for (int i = 0; i < colorList.length; i++) {
+      double cardWidth = getCardSize(i);
+      double cardHeight = cardWidth;
 
-      List<Widget> cardList = [];
+      Widget card = Positioned.directional(
+          textDirection: TextDirection.ltr,
+          top: getTopPositon(cardHeight, widget.cardMaxHeight),
+          start: getStartPosition(cardWidth, i),
+          child: Opacity(
+            opacity: getOpacity(i),
+            child: Container(
+              color: colorList[i],
+              width: cardWidth,
+              height: cardHeight,
+            ),
+          ));
 
-      for (int i = 0; i < colorList.length; i++) {
-        double cardWidth = getCardSize(i);
-        double cardHeight = cardWidth;
+      cardList.add(card);
+    }
 
-        Widget card = Positioned.directional(
-            textDirection: TextDirection.ltr,
-            top: getTopPositon(cardHeight, cardMaxHeight),
-            start: getStartPosition(cardWidth, i),
-            child: Opacity(
-              opacity: getOpacity(i),
-              child: Container(
-                color: colorList[i],
-                width: cardWidth,
-                height: cardHeight,
-              ),
-            ));
-
-        cardList.add(card);
-      }
-
-      return Stack(children: [
-        Container(
-          height: cardMaxHeight,
-          color: Colors.black12,
-          child: Stack(
-            children: cardList,
-          ),
+    return Stack(children: [
+      Container(
+        height: widget.cardMaxHeight,
+        child: Stack(
+          children: cardList,
         ),
-        Positioned.fill(
-          child: PageView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 7,
-            controller: widget.controller,
-            itemBuilder: (context, index) {
-              return Container();
-            },
-          ),
-        )
-      ]);
-    });
+      ),
+      Positioned.fill(
+        child: PageView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 7,
+          controller: widget.controller,
+          itemBuilder: (context, index) {
+            return Container();
+          },
+        ),
+      )
+    ]);
   }
 
   double getWidth(maxHeight, i) {
@@ -168,32 +198,32 @@ class _CardListWidgetState extends State<CardListWidget> {
     double diff = (selectedIndex - currentIndex);
     double diffAbs = diff.abs();
 
-    double basePosition = (viewWidth / 2) - (cardWidth / 2);
+    double basePosition = (widget.viewWidth / 2) - (cardWidth / 2);
 
     if (diffAbs == 0) {
       return basePosition;
     }
     if (diffAbs > 0.0 && diffAbs <= 1.0) {
       if (diff >= 0) {
-        return basePosition - (cardMaxWidth * 1.1) * diffAbs;
+        return basePosition - (widget.cardMaxWidth * 1.1) * diffAbs;
       } else {
-        return basePosition + (cardMaxWidth * 1.1) * diffAbs;
+        return basePosition + (widget.cardMaxWidth * 1.1) * diffAbs;
       }
     } else if (diffAbs > 1.0 && diffAbs < 2.0) {
       if (diff >= 0) {
         return basePosition -
-            (cardMaxWidth * 1.1) -
-            cardMaxWidth * 0.9 * (diffAbs - diffAbs.floor()).abs();
+            (widget.cardMaxWidth * 1.1) -
+            widget.cardMaxWidth * 0.9 * (diffAbs - diffAbs.floor()).abs();
       } else {
         return basePosition +
-            (cardMaxWidth * 1.1) +
-            cardMaxWidth * 0.9 * (diffAbs - diffAbs.floor()).abs();
+            (widget.cardMaxWidth * 1.1) +
+            widget.cardMaxWidth * 0.9 * (diffAbs - diffAbs.floor()).abs();
       }
     } else {
       if (diff >= 0) {
-        return basePosition - cardMaxWidth * 2;
+        return basePosition - widget.cardMaxWidth * 2;
       } else {
-        return basePosition + cardMaxWidth * 2;
+        return basePosition + widget.cardMaxWidth * 2;
       }
     }
   }
@@ -202,20 +232,21 @@ class _CardListWidgetState extends State<CardListWidget> {
     double diff = (selectedIndex - cardIndex).abs();
 
     if (diff >= 0.0 && diff < 1.0) {
-      return cardMaxWidth - cardMaxWidth * (1 / 5) * ((diff - diff.floor()));
+      return widget.cardMaxWidth -
+          widget.cardMaxWidth * (1 / 5) * ((diff - diff.floor()));
     } else if (diff >= 1.0 && diff < 2.0) {
-      return cardMaxWidth -
-          cardMaxWidth * (1 / 5) -
+      return widget.cardMaxWidth -
+          widget.cardMaxWidth * (1 / 5) -
           10 * ((diff - diff.floor()));
     } else if (diff >= 2.0 && diff < 3.0) {
-      final size = cardMaxWidth -
-          cardMaxWidth * (1 / 5) -
+      final size = widget.cardMaxWidth -
+          widget.cardMaxWidth * (1 / 5) -
           10 -
           5 * ((diff - diff.floor()));
 
       return size > 0 ? size : 0;
     } else {
-      final size = cardMaxWidth - cardMaxWidth * (1 / 5) - 15;
+      final size = widget.cardMaxWidth - widget.cardMaxWidth * (1 / 5) - 15;
 
       return size > 0 ? size : 0;
     }
