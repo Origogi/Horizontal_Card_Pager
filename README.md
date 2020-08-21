@@ -11,3 +11,11 @@ This package's animation is inspired from from this [Dribbble](https://dribbble.
 ## Prototype
 
 ![prototype](https://user-images.githubusercontent.com/35194820/90704450-73f69600-e2cb-11ea-85bc-e3e6b702e30f.gif)
+
+## TODO
+
+- [ ] Attach Gesture Detector
+- [ ] Enable to customize card design
+- [ ] Implements sample app
+- [ ] Publish plugin
+
