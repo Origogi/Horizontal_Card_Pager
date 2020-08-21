@@ -39,7 +39,6 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
     controller.addListener(() {
       setState(() {
         currentPosition = controller.page;
-        print(currentPosition);
 
         if (widget.onPageChanged != null) {
           Future(() => widget.onPageChanged(currentPosition));
@@ -52,8 +51,9 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       double viewWidth = constraints.maxWidth;
+      double viewHeight = viewWidth / 5.0;
 
-      double cardMaxWidth = viewWidth / 5.0;
+      double cardMaxWidth = viewHeight;
       double cardMaxHeight = cardMaxWidth;
 
       return GestureDetector(
@@ -64,21 +64,21 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
             isScrolling = true;
           },
           onTapUp: (details) {
-            // if ((currentPosition - currentPosition.floor()).abs() <= 0.15) {
-            //   int selectedIndex = onTapUp(context, constraints.maxHeight,
-            //       constraints.maxWidth, details);
+            if ((currentPosition - currentPosition.floor()).abs() <= 0.15) {
+              int selectedIndex = onTapUp(
+                  context, viewHeight, viewWidth, currentPosition, details);
 
-            //   if (selectedIndex == 2) {
-            //     if (widget.onSelectedItem != null) {
-            //       Future(() => widget.onSelectedItem(currentPosition.round()));
-            //     }
-            //   } else if (selectedIndex >= 0) {
-            //     int goToPage = currentPosition.toInt() + selectedIndex - 2;
-            //     controller.animateToPage(goToPage,
-            //         duration: Duration(milliseconds: 300),
-            //         curve: Curves.easeInOutExpo);
-            //   }
-            // }
+              if (selectedIndex == 2) {
+                if (widget.onSelectedItem != null) {
+                  Future(() => widget.onSelectedItem(currentPosition.round()));
+                }
+              } else if (selectedIndex >= 0) {
+                int goToPage = currentPosition.toInt() + selectedIndex - 2;
+                controller.animateToPage(goToPage,
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOutExpo);
+              }
+            }
           },
           child: CardListWidget(
             controller: controller,
@@ -87,6 +87,26 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
             cardMaxWidth: cardMaxWidth,
           ));
     });
+  }
+
+  int onTapUp(context, cardMaxWidth, viewWidth, currentPosition, details) {
+    final RenderBox box = context.findRenderObject();
+    final Offset localOffset = box.globalToLocal(details.globalPosition);
+
+    double dx = localOffset.dx;
+    print(localOffset);
+
+    for (int i = 0; i < 5; i++) {
+      double cardWidth = getCardSize(cardMaxWidth, i, 2.0);
+      double left =
+          getStartPosition(cardWidth, cardMaxWidth, viewWidth, i, 2.0);
+
+      if (left <= dx && dx <= left + cardWidth) {
+        print(i);
+        return i;
+      }
+    }
+    return -1;
   }
 }
 
@@ -135,13 +155,14 @@ class _CardListWidgetState extends State<CardListWidget> {
     List<Widget> cardList = [];
 
     for (int i = 0; i < colorList.length; i++) {
-      double cardWidth = getCardSize(i);
+      double cardWidth = getCardSize(widget.cardMaxWidth, i, selectedIndex);
       double cardHeight = cardWidth;
 
       Widget card = Positioned.directional(
           textDirection: TextDirection.ltr,
           top: getTopPositon(cardHeight, widget.cardMaxHeight),
-          start: getStartPosition(cardWidth, i),
+          start: getStartPosition(cardWidth, widget.cardMaxWidth,
+              widget.viewWidth, i, selectedIndex),
           child: Opacity(
             opacity: getOpacity(i),
             child: Container(
@@ -174,84 +195,6 @@ class _CardListWidgetState extends State<CardListWidget> {
     ]);
   }
 
-  double getWidth(maxHeight, i) {
-    double cardMaxWidth = maxHeight / 2;
-    return cardMaxWidth - 60 * (i - 2).abs();
-  }
-
-  double getHeight(maxHeight, i) {
-    double cardMaxHeight = maxHeight / 2;
-
-    if (i == 2) {
-      return cardMaxHeight;
-    } else if (i == 0 || i == 4) {
-      return cardMaxHeight - cardMaxHeight * (4 / 5) - 10;
-    } else
-      return cardMaxHeight - cardMaxHeight * (4 / 5);
-  }
-
-  double getTopPositon(double cardHeigth, double viewHeight) {
-    return (viewHeight - cardHeigth) / 2;
-  }
-
-  double getStartPosition(double cardWidth, int currentIndex) {
-    double diff = (selectedIndex - currentIndex);
-    double diffAbs = diff.abs();
-
-    double basePosition = (widget.viewWidth / 2) - (cardWidth / 2);
-
-    if (diffAbs == 0) {
-      return basePosition;
-    }
-    if (diffAbs > 0.0 && diffAbs <= 1.0) {
-      if (diff >= 0) {
-        return basePosition - (widget.cardMaxWidth * 1.1) * diffAbs;
-      } else {
-        return basePosition + (widget.cardMaxWidth * 1.1) * diffAbs;
-      }
-    } else if (diffAbs > 1.0 && diffAbs < 2.0) {
-      if (diff >= 0) {
-        return basePosition -
-            (widget.cardMaxWidth * 1.1) -
-            widget.cardMaxWidth * 0.9 * (diffAbs - diffAbs.floor()).abs();
-      } else {
-        return basePosition +
-            (widget.cardMaxWidth * 1.1) +
-            widget.cardMaxWidth * 0.9 * (diffAbs - diffAbs.floor()).abs();
-      }
-    } else {
-      if (diff >= 0) {
-        return basePosition - widget.cardMaxWidth * 2;
-      } else {
-        return basePosition + widget.cardMaxWidth * 2;
-      }
-    }
-  }
-
-  double getCardSize(int cardIndex) {
-    double diff = (selectedIndex - cardIndex).abs();
-
-    if (diff >= 0.0 && diff < 1.0) {
-      return widget.cardMaxWidth -
-          widget.cardMaxWidth * (1 / 5) * ((diff - diff.floor()));
-    } else if (diff >= 1.0 && diff < 2.0) {
-      return widget.cardMaxWidth -
-          widget.cardMaxWidth * (1 / 5) -
-          10 * ((diff - diff.floor()));
-    } else if (diff >= 2.0 && diff < 3.0) {
-      final size = widget.cardMaxWidth -
-          widget.cardMaxWidth * (1 / 5) -
-          10 -
-          5 * ((diff - diff.floor()));
-
-      return size > 0 ? size : 0;
-    } else {
-      final size = widget.cardMaxWidth - widget.cardMaxWidth * (1 / 5) - 15;
-
-      return size > 0 ? size : 0;
-    }
-  }
-
   double getOpacity(int cardIndex) {
     double diff = (selectedIndex - cardIndex);
 
@@ -264,5 +207,65 @@ class _CardListWidgetState extends State<CardListWidget> {
     } else {
       return 0;
     }
+  }
+}
+
+double getTopPositon(double cardHeigth, double viewHeight) {
+  return (viewHeight - cardHeigth) / 2;
+}
+
+double getStartPosition(double cardWidth, double cardMaxWidth, double viewWidth,
+    int cardIndex, double selectedIndex) {
+  double diff = (selectedIndex - cardIndex);
+  double diffAbs = diff.abs();
+
+  double basePosition = (viewWidth / 2) - (cardWidth / 2);
+
+  if (diffAbs == 0) {
+    return basePosition;
+  }
+  if (diffAbs > 0.0 && diffAbs <= 1.0) {
+    if (diff >= 0) {
+      return basePosition - (cardMaxWidth * 1.1) * diffAbs;
+    } else {
+      return basePosition + (cardMaxWidth * 1.1) * diffAbs;
+    }
+  } else if (diffAbs > 1.0 && diffAbs < 2.0) {
+    if (diff >= 0) {
+      return basePosition -
+          (cardMaxWidth * 1.1) -
+          cardMaxWidth * 0.9 * (diffAbs - diffAbs.floor()).abs();
+    } else {
+      return basePosition +
+          (cardMaxWidth * 1.1) +
+          cardMaxWidth * 0.9 * (diffAbs - diffAbs.floor()).abs();
+    }
+  } else {
+    if (diff >= 0) {
+      return basePosition - cardMaxWidth * 2;
+    } else {
+      return basePosition + cardMaxWidth * 2;
+    }
+  }
+}
+
+double getCardSize(double cardMaxWidth, int cardIndex, double selectedIndex) {
+  double diff = (selectedIndex - cardIndex).abs();
+
+  if (diff >= 0.0 && diff < 1.0) {
+    return cardMaxWidth - cardMaxWidth * (1 / 5) * ((diff - diff.floor()));
+  } else if (diff >= 1.0 && diff < 2.0) {
+    return cardMaxWidth - cardMaxWidth * (1 / 5) - 10 * ((diff - diff.floor()));
+  } else if (diff >= 2.0 && diff < 3.0) {
+    final size = cardMaxWidth -
+        cardMaxWidth * (1 / 5) -
+        10 -
+        5 * ((diff - diff.floor()));
+
+    return size > 0 ? size : 0;
+  } else {
+    final size = cardMaxWidth - cardMaxWidth * (1 / 5) - 15;
+
+    return size > 0 ? size : 0;
   }
 }
