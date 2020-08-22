@@ -19,9 +19,35 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> items = [
+      Container(
+        color: Colors.black.withOpacity(0.5),
+      ),
+      Container(
+        color: Colors.yellow.withOpacity(0.5),
+      ),
+      Container(
+        color: Colors.blue.withOpacity(0.5),
+      ),
+      Container(
+        color: Colors.green.withOpacity(0.5),
+      ),
+      Container(
+        color: Colors.grey.withOpacity(0.5),
+      ),
+      Container(
+        color: Colors.cyan.withOpacity(0.5),
+      ),
+    ];
+
     return MaterialApp(
       home: Scaffold(
-          body: Center(child: HorizontalCardPager(titles: null, images: null))),
+          body: Center(
+              child: HorizontalCardPager(
+        onPageChanged: (page) => print("page : $page"),
+        onSelectedItem: (page) => print("selected : $page"),
+        items: items,
+      ))),
     );
   }
 }

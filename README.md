@@ -14,8 +14,10 @@ This package's animation is inspired from from this [Dribbble](https://dribbble.
 
 ## TODO
 
-- [ ] Attach Gesture Detector
+- [x] Attach Gesture Detector
+- [x] implement call back method
 - [ ] Enable to customize card design
+    - [ ] icon & title
+    - [ ] image only
 - [ ] Implements sample app
 - [ ] Publish plugin
-

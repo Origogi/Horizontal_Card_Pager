@@ -5,16 +5,14 @@ typedef PageChangedCallback = void Function(double page);
 typedef PageSelectedCallback = void Function(int index);
 
 class HorizontalCardPager extends StatefulWidget {
-  final List<String> titles;
-  final List<Widget> images;
+  final List<Widget> items;
   final PageChangedCallback onPageChanged;
   final PageSelectedCallback onSelectedItem;
   final TextStyle textStyle;
   final int initialPage;
 
   HorizontalCardPager(
-      {this.titles,
-      this.images,
+      {this.items,
       this.onPageChanged,
       this.textStyle,
       this.initialPage = 2,
@@ -81,6 +79,7 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
             }
           },
           child: CardListWidget(
+            items: widget.items,
             controller: controller,
             viewWidth: viewWidth,
             cardMaxHeight: cardMaxHeight,
@@ -94,7 +93,6 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
     final Offset localOffset = box.globalToLocal(details.globalPosition);
 
     double dx = localOffset.dx;
-    print(localOffset);
 
     for (int i = 0; i < 5; i++) {
       double cardWidth = getCardSize(cardMaxWidth, i, 2.0);
@@ -102,7 +100,6 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
           getStartPosition(cardWidth, cardMaxWidth, viewWidth, i, 2.0);
 
       if (left <= dx && dx <= left + cardWidth) {
-        print(i);
         return i;
       }
     }
@@ -112,29 +109,23 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
 
 class CardListWidget extends StatefulWidget {
   final PageController controller;
-
   final double cardMaxWidth;
   final double cardMaxHeight;
   final double viewWidth;
+  final List<Widget> items;
 
   CardListWidget(
-      {this.controller, this.cardMaxHeight, this.cardMaxWidth, this.viewWidth});
+      {this.controller,
+      this.cardMaxHeight,
+      this.cardMaxWidth,
+      this.viewWidth,
+      this.items});
 
   @override
   _CardListWidgetState createState() => _CardListWidgetState();
 }
 
 class _CardListWidgetState extends State<CardListWidget> {
-  List<Color> colorList = [
-    Colors.black.withOpacity(0.5),
-    Colors.red.withOpacity(0.5),
-    Colors.blue.withOpacity(0.5),
-    Colors.amber.withOpacity(0.5),
-    Colors.cyan.withOpacity(0.5),
-    Colors.indigo.withOpacity(0.5),
-    Colors.yellow.withOpacity(0.5)
-  ];
-
   double selectedIndex = 2.0;
 
   @override
@@ -154,7 +145,7 @@ class _CardListWidgetState extends State<CardListWidget> {
   Widget build(BuildContext context) {
     List<Widget> cardList = [];
 
-    for (int i = 0; i < colorList.length; i++) {
+    for (int i = 0; i < widget.items.length; i++) {
       double cardWidth = getCardSize(widget.cardMaxWidth, i, selectedIndex);
       double cardHeight = cardWidth;
 
@@ -166,7 +157,7 @@ class _CardListWidgetState extends State<CardListWidget> {
           child: Opacity(
             opacity: getOpacity(i),
             child: Container(
-              color: colorList[i],
+              child: widget.items[i],
               width: cardWidth,
               height: cardHeight,
             ),
