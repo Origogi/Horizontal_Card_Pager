@@ -4,8 +4,23 @@ import 'package:flutter/widgets.dart';
 typedef PageChangedCallback = void Function(double page);
 typedef PageSelectedCallback = void Function(int index);
 
+abstract class CardItem {
+  Widget buildWidget();
+}
+
+class ImageCarditem extends CardItem {
+  final Widget image;
+
+  ImageCarditem({this.image});
+
+  @override
+  Widget buildWidget() {
+    return image;
+  }
+}
+
 class HorizontalCardPager extends StatefulWidget {
-  final List<Widget> items;
+  final List<CardItem> items;
   final PageChangedCallback onPageChanged;
   final PageSelectedCallback onSelectedItem;
   final TextStyle textStyle;
@@ -112,7 +127,7 @@ class CardListWidget extends StatefulWidget {
   final double cardMaxWidth;
   final double cardMaxHeight;
   final double viewWidth;
-  final List<Widget> items;
+  final List<CardItem> items;
 
   CardListWidget(
       {this.controller,
@@ -157,7 +172,7 @@ class _CardListWidgetState extends State<CardListWidget> {
           child: Opacity(
             opacity: getOpacity(i),
             child: Container(
-              child: widget.items[i],
+              child: widget.items[i].buildWidget(),
               width: cardWidth,
               height: cardHeight,
             ),

@@ -19,51 +19,37 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> items = [
-      Container(
-        color: Colors.black.withOpacity(0.5),
-      ),
-      Container(
-        color: Colors.yellow.withOpacity(0.5),
-      ),
-      Container(
-        color: Colors.blue.withOpacity(0.5),
-      ),
-      Container(
-        color: Colors.green.withOpacity(0.5),
-      ),
-      Container(
-        color: Colors.grey.withOpacity(0.5),
-      ),
-      Container(
-        color: Colors.cyan.withOpacity(0.5),
-      ),
-    ];
-    List<Widget> images = [
-      Image.asset(
+    List<CardItem> images = [
+      ImageCarditem(
+          image: Image.asset(
         'images/karma.jpg',
         fit: BoxFit.fitWidth,
-      ),
-      Image.asset(
+      )),
+      ImageCarditem(
+          image: Image.asset(
         'images/lux.jpg',
         fit: BoxFit.fitWidth,
-      ),
-      Image.asset(
-        'images/riven.jpg',
-        fit: BoxFit.fitWidth,
-      ),
-      Image.asset(
-        'images/soraka.jpg',
-        fit: BoxFit.fitWidth,
-      ),
-      Image.asset(
+      )),
+      ImageCarditem(
+          image: Image.asset(
         'images/nami.jpg',
         fit: BoxFit.fitWidth,
-      ),
-      Image.asset(
+      )),
+      ImageCarditem(
+          image: Image.asset(
         'images/panteon.jpg',
         fit: BoxFit.fitWidth,
-      ),
+      )),
+      ImageCarditem(
+          image: Image.asset(
+        'images/riven.jpg',
+        fit: BoxFit.fitWidth,
+      )),
+      ImageCarditem(
+          image: Image.asset(
+        'images/soraka.jpg',
+        fit: BoxFit.fitWidth,
+      )),
     ];
 
     return MaterialApp(
