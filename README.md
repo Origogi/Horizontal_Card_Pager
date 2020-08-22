@@ -18,6 +18,6 @@ This package's animation is inspired from from this [Dribbble](https://dribbble.
 - [x] implement call back method
 - [ ] Enable to customize card design
     - [ ] icon & title
-    - [ ] image only
+    - [x] image only
 - [ ] Implements sample app
 - [ ] Publish plugin

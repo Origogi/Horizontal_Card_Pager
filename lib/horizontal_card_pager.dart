@@ -176,7 +176,7 @@ class _CardListWidgetState extends State<CardListWidget> {
       Positioned.fill(
         child: PageView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 7,
+          itemCount: widget.items.length,
           controller: widget.controller,
           itemBuilder: (context, index) {
             return Container();

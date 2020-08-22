@@ -39,6 +39,32 @@ class _MyAppState extends State<MyApp> {
         color: Colors.cyan.withOpacity(0.5),
       ),
     ];
+    List<Widget> images = [
+      Image.asset(
+        'images/karma.jpg',
+        fit: BoxFit.fitWidth,
+      ),
+      Image.asset(
+        'images/lux.jpg',
+        fit: BoxFit.fitWidth,
+      ),
+      Image.asset(
+        'images/riven.jpg',
+        fit: BoxFit.fitWidth,
+      ),
+      Image.asset(
+        'images/soraka.jpg',
+        fit: BoxFit.fitWidth,
+      ),
+      Image.asset(
+        'images/nami.jpg',
+        fit: BoxFit.fitWidth,
+      ),
+      Image.asset(
+        'images/panteon.jpg',
+        fit: BoxFit.fitWidth,
+      ),
+    ];
 
     return MaterialApp(
       home: Scaffold(
@@ -46,7 +72,7 @@ class _MyAppState extends State<MyApp> {
               child: HorizontalCardPager(
         onPageChanged: (page) => print("page : $page"),
         onSelectedItem: (page) => print("selected : $page"),
-        items: items,
+        items: images,
       ))),
     );
   }
