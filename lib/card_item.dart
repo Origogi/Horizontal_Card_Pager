@@ -26,7 +26,7 @@ class IconTitleCardItem extends CardItem {
       {this.iconData,
       this.text,
       this.selectedColor = Colors.blue,
-      this.noSelectedColor = Colors.white10});
+      this.noSelectedColor = Colors.white});
 
   @override
   Widget buildWidget(double diffPosition) {
@@ -50,6 +50,12 @@ class IconTitleCardItem extends CardItem {
           child: Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 4),
+                      blurRadius: 6)
+                ],
                 color: selectedColor,
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             child: Column(
@@ -78,6 +84,12 @@ class IconTitleCardItem extends CardItem {
           opacity: iconOnlyOpacity,
           child: Container(
             decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 4),
+                      blurRadius: 6),
+                ],
                 color: noSelectedColor,
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             padding: EdgeInsets.all(10),

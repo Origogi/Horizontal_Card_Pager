@@ -10,14 +10,19 @@ This package's animation is inspired from from this [Dribbble](https://dribbble.
 
 ## Prototype
 
-![prototype](https://user-images.githubusercontent.com/35194820/90704450-73f69600-e2cb-11ea-85bc-e3e6b702e30f.gif)
+
+
+
+|v0.1.0|v0.2.0|
+|------|---|
+|![prototype](https://user-images.githubusercontent.com/35194820/90704450-73f69600-e2cb-11ea-85bc-e3e6b702e30f.gif)|![alpha](https://user-images.githubusercontent.com/35194820/90978412-c4e6e280-e588-11ea-9e5e-6b1f38fc6c30.gif)|
 
 ## TODO
 
 - [x] Attach Gesture Detector
 - [x] implement call back method
 - [ ] Enable to customize card design
-    - [ ] icon & title
+    - [x] icon & title
     - [x] image only
 - [ ] Implements sample app
 - [ ] Publish plugin
