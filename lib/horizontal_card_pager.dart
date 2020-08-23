@@ -1,23 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'card_item.dart';
+
 typedef PageChangedCallback = void Function(double page);
 typedef PageSelectedCallback = void Function(int index);
-
-abstract class CardItem {
-  Widget buildWidget();
-}
-
-class ImageCarditem extends CardItem {
-  final Widget image;
-
-  ImageCarditem({this.image});
-
-  @override
-  Widget buildWidget() {
-    return image;
-  }
-}
 
 class HorizontalCardPager extends StatefulWidget {
   final List<CardItem> items;
@@ -172,7 +159,8 @@ class _CardListWidgetState extends State<CardListWidget> {
           child: Opacity(
             opacity: getOpacity(i),
             child: Container(
-              child: widget.items[i].buildWidget(),
+              child: widget.items[i]
+                  .buildWidget((i.toDouble() - selectedIndex).abs()),
               width: cardWidth,
               height: cardHeight,
             ),
