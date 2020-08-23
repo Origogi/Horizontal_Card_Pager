@@ -51,7 +51,9 @@ class IconTitleCardItem extends CardItem {
           opacity: iconTextOpacity,
           child: Container(
             padding: EdgeInsets.all(10),
-            color: selectedColor,
+            decoration: BoxDecoration(
+                color: selectedColor,
+                borderRadius: BorderRadius.all(Radius.circular(20))),
             child: Column(
               children: [
                 Expanded(
@@ -71,8 +73,10 @@ class IconTitleCardItem extends CardItem {
         Opacity(
           opacity: iconOnlyOpacity,
           child: Container(
+            decoration: BoxDecoration(
+                color: noSelectedColor,
+                borderRadius: BorderRadius.all(Radius.circular(20))),
             padding: EdgeInsets.all(10),
-            color: noSelectedColor,
             child: FittedBox(
               fit: BoxFit.fill,
               child: Icon(iconData),
