@@ -19,14 +19,18 @@ class ImageCarditem extends CardItem {
 class IconTitleCardItem extends CardItem {
   final IconData iconData;
   final String text;
-  final Color selectedColor;
-  final Color noSelectedColor;
+  final Color selectedBgColor;
+  final Color noSelectedBgColor;
+  final Color selectedIconTextColor;
+  final Color noSelectedIconTextColor;
 
   IconTitleCardItem(
       {this.iconData,
       this.text,
-      this.selectedColor = Colors.blue,
-      this.noSelectedColor = Colors.white});
+      this.selectedIconTextColor = Colors.white,
+      this.noSelectedIconTextColor = Colors.grey,
+      this.selectedBgColor = Colors.blue,
+      this.noSelectedBgColor = Colors.white});
 
   @override
   Widget buildWidget(double diffPosition) {
@@ -56,7 +60,7 @@ class IconTitleCardItem extends CardItem {
                       offset: Offset(0, 4),
                       blurRadius: 6)
                 ],
-                color: selectedColor,
+                color: selectedBgColor,
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             child: Column(
               children: [
@@ -65,7 +69,7 @@ class IconTitleCardItem extends CardItem {
                     fit: BoxFit.fill,
                     child: Icon(
                       iconData,
-                      color: Colors.white,
+                      color: selectedIconTextColor,
                     ),
                   ),
                 ),
@@ -73,7 +77,8 @@ class IconTitleCardItem extends CardItem {
                   fit: BoxFit.fitHeight,
                   child: Text(
                     text,
-                    style: TextStyle(fontSize: 15, color: Colors.white),
+                    style:
+                        TextStyle(fontSize: 15, color: selectedIconTextColor),
                   ),
                 )
               ],
@@ -90,14 +95,14 @@ class IconTitleCardItem extends CardItem {
                       offset: Offset(0, 4),
                       blurRadius: 6),
                 ],
-                color: noSelectedColor,
+                color: noSelectedBgColor,
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             padding: EdgeInsets.all(10),
             child: FittedBox(
               fit: BoxFit.fill,
               child: Icon(
                 iconData,
-                color: Colors.grey,
+                color: noSelectedIconTextColor,
               ),
             ),
           ),
