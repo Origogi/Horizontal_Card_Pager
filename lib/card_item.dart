@@ -26,12 +26,10 @@ class IconTitleCardItem extends CardItem {
       {this.iconData,
       this.text,
       this.selectedColor = Colors.blue,
-      this.noSelectedColor = Colors.red});
+      this.noSelectedColor = Colors.white10});
 
   @override
   Widget buildWidget(double diffPosition) {
-    double textSize = 40;
-
     double iconOnlyOpacity = 1.0;
     double iconTextOpacity = 0;
 
@@ -59,12 +57,18 @@ class IconTitleCardItem extends CardItem {
                 Expanded(
                   child: FittedBox(
                     fit: BoxFit.fill,
-                    child: Icon(iconData),
+                    child: Icon(
+                      iconData,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-                Text(
-                  text,
-                  style: TextStyle(fontSize: textSize),
+                FittedBox(
+                  fit: BoxFit.fitHeight,
+                  child: Text(
+                    text,
+                    style: TextStyle(fontSize: 15, color: Colors.white),
+                  ),
                 )
               ],
             ),
