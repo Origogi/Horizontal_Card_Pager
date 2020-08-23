@@ -83,7 +83,10 @@ class IconTitleCardItem extends CardItem {
             padding: EdgeInsets.all(10),
             child: FittedBox(
               fit: BoxFit.fill,
-              child: Icon(iconData),
+              child: Icon(
+                iconData,
+                color: Colors.grey,
+              ),
             ),
           ),
         ),
