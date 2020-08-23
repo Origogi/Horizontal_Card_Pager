@@ -22,20 +22,28 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     List<CardItem> items = [
       IconTitleCardItem(
-        text: "icon",
-        iconData: Icons.access_time,
+        text: "Alarm",
+        iconData: Icons.access_alarms,
       ),
       IconTitleCardItem(
-        text: "icon",
-        iconData: Icons.access_time,
+        text: "Add",
+        iconData: Icons.add,
       ),
       IconTitleCardItem(
-        text: "icon",
-        iconData: Icons.access_time,
+        text: "Call",
+        iconData: Icons.add_call,
       ),
       IconTitleCardItem(
-        text: "icon",
-        iconData: Icons.access_time,
+        text: "WiFi",
+        iconData: Icons.wifi,
+      ),
+      IconTitleCardItem(
+        text: "File",
+        iconData: Icons.attach_file,
+      ),
+      IconTitleCardItem(
+        text: "Air Play",
+        iconData: Icons.airplay,
       ),
     ];
 
