@@ -49,101 +49,77 @@ class _MyAppState extends State<MyApp> {
 
     List<CardItem> images = [
       ImageCarditem(
-          image: Wrap(
-        runAlignment: WrapAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
-            ], borderRadius: BorderRadius.all(Radius.circular(3))),
-            child: Image.asset(
-              'images/karma.jpg',
-              fit: BoxFit.fitWidth,
-            ),
+        image: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+          ], borderRadius: BorderRadius.all(Radius.circular(3))),
+          child: Image.asset(
+            'images/karma.jpg',
+            fit: BoxFit.fitWidth,
           ),
-        ],
-      )),
+        ),
+      ),
       ImageCarditem(
-          image: Wrap(
-        runAlignment: WrapAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
-            ], borderRadius: BorderRadius.all(Radius.circular(3))),
-            child: Image.asset(
-              'images/karma.jpg',
-              fit: BoxFit.fitWidth,
-            ),
+        image: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+          ], borderRadius: BorderRadius.all(Radius.circular(3))),
+          child: Image.asset(
+            'images/lux.jpg',
+            fit: BoxFit.fitWidth,
           ),
-        ],
-      )),
+        ),
+      ),
       ImageCarditem(
-          image: Wrap(
-        runAlignment: WrapAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
-            ], borderRadius: BorderRadius.all(Radius.circular(3))),
-            child: Image.asset(
-              'images/karma.jpg',
-              fit: BoxFit.fitWidth,
-            ),
+        image: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+          ], borderRadius: BorderRadius.all(Radius.circular(3))),
+          child: Image.asset(
+            'images/nami.jpg',
+            fit: BoxFit.fitWidth,
           ),
-        ],
-      )),
+        ),
+      ),
       ImageCarditem(
-          image: Wrap(
-        runAlignment: WrapAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
-            ], borderRadius: BorderRadius.all(Radius.circular(3))),
-            child: Image.asset(
-              'images/karma.jpg',
-              fit: BoxFit.fitWidth,
-            ),
+        image: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+          ], borderRadius: BorderRadius.all(Radius.circular(3))),
+          child: Image.asset(
+            'images/panteon.jpg',
+            fit: BoxFit.fitWidth,
           ),
-        ],
-      )),
+        ),
+      ),
       ImageCarditem(
-          image: Wrap(
-        runAlignment: WrapAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
-            ], borderRadius: BorderRadius.all(Radius.circular(3))),
-            child: Image.asset(
-              'images/karma.jpg',
-              fit: BoxFit.fitWidth,
-            ),
+        image: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+          ], borderRadius: BorderRadius.all(Radius.circular(3))),
+          child: Image.asset(
+            'images/riven.jpg',
+            fit: BoxFit.fitWidth,
           ),
-        ],
-      )),
+        ),
+      ),
       ImageCarditem(
-          image: Wrap(
-        runAlignment: WrapAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
-            ], borderRadius: BorderRadius.all(Radius.circular(3))),
-            child: Image.asset(
-              'images/karma.jpg',
-              fit: BoxFit.fitWidth,
-            ),
+        image: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+          ], borderRadius: BorderRadius.all(Radius.circular(3))),
+          child: Image.asset(
+            'images/soraka.jpg',
+            fit: BoxFit.fitWidth,
           ),
-        ],
-      )),
+        ),
+      ),
     ];
 
     return MaterialApp(

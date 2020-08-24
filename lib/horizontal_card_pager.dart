@@ -159,8 +159,10 @@ class _CardListWidgetState extends State<CardListWidget> {
           child: Opacity(
             opacity: getOpacity(i),
             child: Container(
-              child: widget.items[i]
-                  .buildWidget((i.toDouble() - selectedIndex).abs()),
+              child: Center(
+                child: widget.items[i]
+                    .buildWidget((i.toDouble() - selectedIndex).abs()),
+              ),
               width: cardWidth,
               height: cardHeight,
             ),
