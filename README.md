@@ -4,8 +4,7 @@
 </a>
 </div>
   
-
-Use dynamic and beautiful card view pagers to help you create great apps.
+Use dynamic and beautiful card view pagers (horizontal direction) to help you create great apps.
 
 ## Preview
 
