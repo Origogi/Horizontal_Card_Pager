@@ -38,6 +38,55 @@ final List<String> titles = [
   "ZOE",
 ];
 
+final skinNameMap = {
+  "AKALI": [
+    "NURSE AKALI",
+    "INFERNAL AKALI",
+    "CLASSIC",
+    "K/DA AKALI",
+    "K/DA AKALI PRESTIGGE EDITION",
+    "HEADUNTER AKALI"
+  ],
+  "CAMILE": [
+    "COVEN CAMILE",
+    "PROGRAM KAMILE",
+    "CLASSIC",
+    "IG CAMILE",
+  ],
+  "EZREAL": [
+    "SSG EZREAL",
+    "PULSEFIRE EZREAL",
+    "CLASSIC",
+    "FROSTED EZREAL",
+    "BATTLE ACADEMIA EZREAL",
+    "STAR GUARDIAN EZREAL"
+  ],
+  "IRELIA": [
+    "IG IRELIA",
+    "EIVINE SWORD IRELIA",
+    "CLASSIC",
+    "PROJECT: IRELIA",
+    "PROJECT: IRELIA PRESTIGGE EDITION",
+    "HIGH NOON IRELIA"
+  ],
+  "POPPY": [
+    "BLACK SMITH POPPY",
+    "NOXUS POPPY",
+    "CLASSIC",
+    "BATTLE REGALIA POPPY",
+    "STAR GUARDIAN POPPY",
+    "HEXTECH PPOPY"
+  ],
+  "ZOE": [
+    "POOL PARTY ZOE",
+    "CYBER POP ZOE",
+    "CLASSIC",
+    "STAR GUARDIAN ZOE",
+    "ARCANIST ZOE",
+    "ARCANIST ZOE PRESTIGE EDITION"
+  ],
+};
+
 final List<Widget> images = [
   Hero(
     tag: "AKALI",
@@ -131,6 +180,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => DetailView(
+                                skinNames:
+                                    skinNameMap[titles[index].toUpperCase()],
                                 champion:
                                     championsMap[titles[index].toLowerCase()],
                               )),

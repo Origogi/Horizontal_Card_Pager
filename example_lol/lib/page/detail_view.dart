@@ -11,8 +11,9 @@ import 'package:horizontal_card_pager/card_item.dart';
 
 class DetailView extends StatefulWidget {
   final Champion champion;
+  final List<String> skinNames;
 
-  const DetailView({this.champion});
+  const DetailView({this.champion, this.skinNames});
 
   @override
   _DetailViewState createState() => _DetailViewState(champion: champion);
@@ -54,6 +55,12 @@ class _DetailViewState extends State<DetailView> with TickerProviderStateMixin {
     });
   }
 
+  int currentSkinIndex = 2;
+  int nextSkinIndex = 2;
+
+  double currentSkinOpacity = 1.0;
+  double nextSkinOpacity = 1.0;
+
   @override
   void dispose() {
     super.dispose();
@@ -63,188 +70,253 @@ class _DetailViewState extends State<DetailView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgoundColor,
-      body: Stack(children: [
-        Column(
-          children: [
-            Hero(
-              tag: champion.name.toUpperCase(),
-              child: ShaderMask(
-                shaderCallback: (rect) {
-                  return LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [backgoundColor, Colors.transparent],
-                  ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-                },
-                blendMode: BlendMode.dstIn,
-                child: Image.asset(
-                  "images/${champion.name.toLowerCase()}/2.jpg",
-                  fit: BoxFit.fitWidth,
-                  width: double.infinity,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: HorizontalCardPager(
-                initialPage: 0,
-                items: getSkinImageItems(champion.name.toLowerCase()),
-              ),
-            )
-          ],
-        ),
-        Padding(
-            padding: EdgeInsets.only(left: 5, top: 45),
-            child: CustomBackButton()),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Stack(
+      body: SafeArea(
+        child: Stack(children: [
+          Column(
             children: [
-              Container(
-                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 20),
-                  width: double.infinity,
-                  height: 320,
+              Hero(
+                tag: champion.name.toUpperCase(),
+                child: ShaderMask(
+                  shaderCallback: (rect) {
+                    return LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [backgoundColor, Colors.transparent],
+                    ).createShader(
+                        Rect.fromLTRB(0, 0, rect.width, rect.height));
+                  },
+                  blendMode: BlendMode.dstIn,
                   child: Stack(
                     children: [
-                      AnimatedBorder(animation: animation),
-                      Align(
-                        alignment: Alignment.center,
-                        child: AnimatedOpacity(
-                          opacity: init ? 1 : 0,
-                          duration: Duration(milliseconds: 500),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 50.0),
-                            child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Column(
+                      //Current Image
+                      Opacity(
+                        opacity: currentSkinOpacity,
+                        child: Image.asset(
+                          "images/${champion.name.toLowerCase()}/$currentSkinIndex.jpg",
+                          fit: BoxFit.fitWidth,
+                          width: double.infinity,
+                        ),
+                      ),
+
+                      //Next Image
+                      Opacity(
+                        opacity: nextSkinOpacity,
+                        child: Image.asset(
+                          "images/${champion.name.toLowerCase()}/$nextSkinIndex.jpg",
+                          fit: BoxFit.fitWidth,
+                          width: double.infinity,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Opacity(
+                        opacity: currentSkinOpacity,
+                        child: Text(widget.skinNames[currentSkinIndex],
+                            textAlign: TextAlign.center,
+                            style: textTheme.headline3)),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Opacity(
+                        opacity: nextSkinOpacity,
+                        child: Text(
+                          widget.skinNames[nextSkinIndex],
+                          style: textTheme.headline3,
+                          textAlign: TextAlign.center,
+                        )),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: HorizontalCardPager(
+                  items: getSkinImageItems(
+                      champion.name.toLowerCase(), widget.skinNames.length),
+                  onPageChanged: (page) {
+                    setState(() {
+                      if ((page - currentSkinIndex.toDouble()).abs() >= 1) {
+                        currentSkinIndex = nextSkinIndex;
+                        currentSkinOpacity = 1.0;
+                        nextSkinOpacity = 0;
+                      } else if (page > currentSkinIndex) {
+                        nextSkinIndex = currentSkinIndex + 1;
+                        nextSkinOpacity = page - currentSkinIndex.toDouble();
+                        currentSkinOpacity = 1 - nextSkinOpacity;
+                      } else if (page < currentSkinIndex) {
+                        nextSkinIndex = currentSkinIndex - 1;
+                        nextSkinOpacity = currentSkinIndex.toDouble() - page;
+                        currentSkinOpacity = 1.0 - nextSkinOpacity;
+                      }
+
+                      print(currentSkinOpacity.toString() +
+                          "/" +
+                          nextSkinOpacity.toString());
+                    });
+                  },
+                ),
+              )
+            ],
+          ),
+          Padding(
+              padding: EdgeInsets.only(left: 5, top: 45),
+              child: CustomBackButton()),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Stack(
+              children: [
+                Container(
+                    padding: EdgeInsets.only(left: 15, right: 15, bottom: 20),
+                    width: double.infinity,
+                    height: 320,
+                    child: Stack(
+                      children: [
+                        AnimatedBorder(animation: animation),
+                        Align(
+                          alignment: Alignment.center,
+                          child: AnimatedOpacity(
+                            opacity: init ? 1 : 0,
+                            duration: Duration(milliseconds: 500),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 50.0),
+                              child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                  "images/role/${champion.role.toString().split(".")[1].toLowerCase()}.png",
+                                                  width: 40,
+                                                  height: 40),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text("ROLE",
+                                                  style: textTheme.headline3),
+                                              Text(
+                                                  champion.role
+                                                      .toString()
+                                                      .split(".")[1],
+                                                  style: textTheme.headline3
+                                                      .copyWith(
+                                                          color: Color(
+                                                              0xffAE914B)))
+                                            ]),
+                                        Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                                "images/role/${champion.role.toString().split(".")[1].toLowerCase()}.png",
-                                                width: 40,
-                                                height: 40),
+                                          children: <Widget>[
+                                            Container(
+                                              height: 40,
+                                              child: Center(
+                                                child: DifficultyGraph(
+                                                    count: widget.champion
+                                                        .difficulty.index),
+                                              ),
+                                            ),
                                             SizedBox(
                                               height: 20,
                                             ),
-                                            Text("ROLE",
-                                                style: textTheme.headline3),
                                             Text(
-                                                champion.role
+                                              "DIFFICULTY",
+                                              style: textTheme.headline3,
+                                            ),
+                                            Text(
+                                                champion.difficulty
                                                     .toString()
-                                                    .split(".")[1],
+                                                    .split(".")[1]
+                                                    .toUpperCase(),
                                                 style: textTheme.headline3
                                                     .copyWith(
                                                         color:
                                                             Color(0xffAE914B)))
-                                          ]),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            height: 40,
-                                            child: Center(
-                                              child: DifficultyGraph(
-                                                  count: widget.champion
-                                                      .difficulty.index),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            "DIFFICULTY",
-                                            style: textTheme.headline3,
-                                          ),
-                                          Text(
-                                              champion.difficulty
-                                                  .toString()
-                                                  .split(".")[1]
-                                                  .toUpperCase(),
-                                              style: textTheme.headline3
-                                                  .copyWith(
-                                                      color: Color(0xffAE914B)))
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 30.0),
-                                    child: Divider(
-                                      color: Colors.white,
-                                      height: 1,
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20, right: 20, bottom: 30),
-                                    child: Text(champion.description,
-                                        style: textTheme.bodyText1,
-                                        maxLines: 6,
-                                        overflow: TextOverflow.ellipsis),
-                                  )
-                                ]),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 30.0),
+                                      child: Divider(
+                                        color: Colors.white,
+                                        height: 1,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 20, right: 20, bottom: 30),
+                                      child: Text(champion.description,
+                                          style: textTheme.bodyText1,
+                                          maxLines: 6,
+                                          overflow: TextOverflow.ellipsis),
+                                    )
+                                  ]),
+                            ),
                           ),
-                        ),
-                      )
-                    ],
-                  )),
-            ],
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: AnimatedOpacity(
-            duration: Duration(milliseconds: 500),
-            opacity: init ? 1.0 : 0.0,
-            child: Container(
-              margin: EdgeInsets.only(bottom: 185),
-              width: double.infinity,
-              height: 270,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      champion.nickName,
-                      style: Theme.of(context).textTheme.headline2,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      champion.name.toUpperCase(),
-                      style: Theme.of(context).textTheme.headline1.copyWith(
-                          letterSpacing:
-                              4 + 25 * ((400 - animation.value) / 400.0)),
-                    ),
-                  ]),
+                        )
+                      ],
+                    )),
+              ],
             ),
           ),
-        ),
-      ]),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: AnimatedOpacity(
+              duration: Duration(milliseconds: 500),
+              opacity: init ? 1.0 : 0.0,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 185),
+                width: double.infinity,
+                height: 270,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        champion.nickName,
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        champion.name.toUpperCase(),
+                        style: Theme.of(context).textTheme.headline1.copyWith(
+                            letterSpacing:
+                                4 + 10 * ((400 - animation.value) / 400.0)),
+                      ),
+                    ]),
+              ),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 
-  List<CardItem> getSkinImageItems(String name) {
+  List<CardItem> getSkinImageItems(String name, int length) {
     List<CardItem> items = [];
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < length; i++) {
       items.add(ImageCarditem(
         image: Image.asset(
           "images/${champion.name.toLowerCase()}/$i.jpg",
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.cover,
         ),
       ));
     }
