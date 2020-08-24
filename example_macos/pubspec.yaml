@@ -1,0 +1,26 @@
+name: horizontal_card_pager_example
+description: Demonstrates how to use the horizontal_card_pager plugin.
+
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  horizontal_card_pager:
+    path: ../
+
+  cupertino_icons: ^0.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+  assets:
+   - images/
