@@ -49,34 +49,100 @@ class _MyAppState extends State<MyApp> {
 
     List<CardItem> images = [
       ImageCarditem(
-          image: Image.asset(
-        'images/karma.jpg',
-        fit: BoxFit.fitWidth,
+          image: Wrap(
+        runAlignment: WrapAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+            ], borderRadius: BorderRadius.all(Radius.circular(3))),
+            child: Image.asset(
+              'images/karma.jpg',
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ],
       )),
       ImageCarditem(
-          image: Image.asset(
-        'images/lux.jpg',
-        fit: BoxFit.fitWidth,
+          image: Wrap(
+        runAlignment: WrapAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+            ], borderRadius: BorderRadius.all(Radius.circular(3))),
+            child: Image.asset(
+              'images/karma.jpg',
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ],
       )),
       ImageCarditem(
-          image: Image.asset(
-        'images/nami.jpg',
-        fit: BoxFit.fitWidth,
+          image: Wrap(
+        runAlignment: WrapAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+            ], borderRadius: BorderRadius.all(Radius.circular(3))),
+            child: Image.asset(
+              'images/karma.jpg',
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ],
       )),
       ImageCarditem(
-          image: Image.asset(
-        'images/panteon.jpg',
-        fit: BoxFit.fitWidth,
+          image: Wrap(
+        runAlignment: WrapAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+            ], borderRadius: BorderRadius.all(Radius.circular(3))),
+            child: Image.asset(
+              'images/karma.jpg',
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ],
       )),
       ImageCarditem(
-          image: Image.asset(
-        'images/riven.jpg',
-        fit: BoxFit.fitWidth,
+          image: Wrap(
+        runAlignment: WrapAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+            ], borderRadius: BorderRadius.all(Radius.circular(3))),
+            child: Image.asset(
+              'images/karma.jpg',
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ],
       )),
       ImageCarditem(
-          image: Image.asset(
-        'images/soraka.jpg',
-        fit: BoxFit.fitWidth,
+          image: Wrap(
+        runAlignment: WrapAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black45, offset: Offset(0, 4), blurRadius: 5),
+            ], borderRadius: BorderRadius.all(Radius.circular(3))),
+            child: Image.asset(
+              'images/karma.jpg',
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ],
       )),
     ];
 
@@ -86,8 +152,8 @@ class _MyAppState extends State<MyApp> {
               child: HorizontalCardPager(
         onPageChanged: (page) => print("page : $page"),
         onSelectedItem: (page) => print("selected : $page"),
-        // items: images,
-        items: items,
+        items: images,
+        // items: items,
       ))),
     );
   }
