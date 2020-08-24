@@ -10,13 +10,11 @@ class HorizontalCardPager extends StatefulWidget {
   final List<CardItem> items;
   final PageChangedCallback onPageChanged;
   final PageSelectedCallback onSelectedItem;
-  final TextStyle textStyle;
   final int initialPage;
 
   HorizontalCardPager(
       {this.items,
       this.onPageChanged,
-      this.textStyle,
       this.initialPage = 2,
       this.onSelectedItem});
 

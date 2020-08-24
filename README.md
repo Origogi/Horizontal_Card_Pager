@@ -24,6 +24,78 @@ Use dynamic and beautiful card view pagers to help you create great apps.
 </a>
 </div>
 
+1. Add dependency to `pubspec.yaml`
+
+    *Get the latest version in the 'Installing' tab on pub.dartlang.org*
+    
+```dart
+dependencies:
+    horizontal_card_pager: ^0.1.0
+```
+
+2. Import the package
+
+```dart
+import 'package:horizontal_card_pager/horizontal_card_pager.dart';
+import 'package:horizontal_card_pager/card_item.dart';
+```
+
+3. Adding `HorizontalCardPager`
+
+*With optional parameters*
+```dart
+HorizontalCardPager(
+    initialPage : 2 // default value is 2
+    onPageChanged: (page) => print("page : $page"),
+    onSelectedItem: (page) => print("selected : $page"),
+    items: { ... },  // set ImageCardItem or IconTitleCardItem class
+))
+```
+
+4. Put `CardItem` object in items parameter in `HorizontalCardPager`
+
+If the contents of the card contain only images, use the `ImageCardItem` class. and If the contents of the card include an icon and a title, use the `IconTitleCardItem` class.
+
+|Image|Icon & Text|
+|------|---|
+|![imagetype](https://user-images.githubusercontent.com/35194820/91019509-12685b80-e62c-11ea-832f-eca13c90a8ce.PNG)|![icontitletype](https://user-images.githubusercontent.com/35194820/91019511-1300f200-e62c-11ea-8efd-f669b96b8705.PNG)|
+
+### `ImageCardItem`
+
+~~~dart
+
+class ImageCarditem extends CardItem {
+  final Widget image;
+
+  ImageCarditem({this.image});
+}
+~~~
+
+### `IconTitleCardItem`
+
+~~~dart
+class IconTitleCardItem extends CardItem {
+  final IconData iconData;
+  final String text;
+  final Color selectedBgColor;
+  final Color noSelectedBgColor;
+  final Color selectedIconTextColor;
+  final Color noSelectedIconTextColor;
+
+  IconTitleCardItem(
+      {this.iconData,
+      this.text,
+      this.selectedIconTextColor = Colors.white,
+      this.noSelectedIconTextColor = Colors.grey,
+      this.selectedBgColor = Colors.blue,
+      this.noSelectedBgColor = Colors.white});
+}
+~~~
+
+## How to use
+
+Check out the **example** app in the [example](example) directory or the 'Example' tab on pub.dartlang.org for a more complete example.
+
 ## Reference
 
 This package's animation is inspired from from this [Dribbble](https://dribbble.com/shots/5097519-California-National-Park-Guide?utm_source=Clipboard_Shot&utm_campaign=KEVINGAUTIER&utm_content=California%20National%20Park%20Guide&utm_medium=Social_Share) art.
@@ -32,7 +104,7 @@ This package's animation is inspired from from this [Dribbble](https://dribbble.
 
 - [x] Attach Gesture Detector
 - [x] implement call back method
-- [ ] Enable to customize card design
+- [x] Enable to customize card design
     - [x] icon & title
     - [x] image only
 - [x] Implements sample app
