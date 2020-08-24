@@ -3,6 +3,15 @@
     <img src="https://user-images.githubusercontent.com/35194820/91010815-29a04c80-e61e-11ea-8cb3-52c68d7b8810.png">
 </a>
 </div>
+
+<div align="center">
+	<a href="https://flutter.io">
+    <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"
+      alt="Platform" />
+  </a>
+  <a href="https://pub.dev/packages/horizontal_card_pager">
+   <img src="https://img.shields.io/badge/pub-v0.2.0-blue" />
+</a>
   
 Use dynamic and beautiful card view pagers (horizontal direction) to help you create great apps.
 

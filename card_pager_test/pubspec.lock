@@ -68,12 +68,12 @@ packages:
     source: sdk
     version: "0.0.0"
   horizontal_card_pager:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
-      path: ".."
-      relative: true
-    source: path
-    version: "0.1.1"
+      name: horizontal_card_pager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   matcher:
     dependency: transitive
     description:

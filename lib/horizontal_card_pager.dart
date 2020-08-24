@@ -108,6 +108,7 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
   }
 }
 
+@immutable
 class CardListWidget extends StatefulWidget {
   final PageController controller;
   final double cardMaxWidth;
