@@ -10,8 +10,9 @@
       alt="Platform" />
   </a>
   <a href="https://pub.dev/packages/horizontal_card_pager">
-   <img src="https://img.shields.io/badge/pub-v0.2.0-blue" />
+   <img src="https://img.shields.io/badge/pub-v0.2.1-blue" />
 </a>
+</div>
   
 Use dynamic and beautiful card view pagers (horizontal direction) to help you create great apps.
 
