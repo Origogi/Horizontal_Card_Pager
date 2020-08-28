@@ -9,3 +9,7 @@
 ## 0.2.1
 
 * Fix readme
+
+## 0.3.0
+
+* Class Refactoring

@@ -10,7 +10,7 @@
       alt="Platform" />
   </a>
   <a href="https://pub.dev/packages/horizontal_card_pager">
-   <img src="https://img.shields.io/badge/pub-v0.2.1-blue" />
+   <img src="https://img.shields.io/badge/pub-v0.3.0-blue" />
 </a>
 </div>
   
@@ -39,7 +39,7 @@ Use dynamic and beautiful card view pagers (horizontal direction) to help you cr
     
 ```dart
 dependencies:
-    horizontal_card_pager: ^0.1.0
+    horizontal_card_pager: ^0.3.0
 ```
 
 2. Import the package

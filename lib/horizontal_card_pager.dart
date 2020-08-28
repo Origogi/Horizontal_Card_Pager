@@ -108,21 +108,20 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
   }
 }
 
-@immutable
 class CardListWidget extends StatefulWidget {
   final PageController controller;
   final double cardMaxWidth;
   final double cardMaxHeight;
   final double viewWidth;
   final List<CardItem> items;
-  double selectedIndex = 2.0;
+  final double selectedIndex;
 
   CardListWidget(
       {this.controller,
       this.cardMaxHeight,
       this.cardMaxWidth,
       this.viewWidth,
-      this.selectedIndex,
+      this.selectedIndex = 2.0,
       this.items});
 
   @override
@@ -130,13 +129,17 @@ class CardListWidget extends StatefulWidget {
 }
 
 class _CardListWidgetState extends State<CardListWidget> {
+  double selectedIndex;
+
   @override
   void initState() {
     super.initState();
 
+    selectedIndex = widget.selectedIndex;
+
     widget.controller.addListener(() {
       setState(() {
-        widget.selectedIndex = widget.controller.page;
+        selectedIndex = widget.controller.page;
       });
     });
   }
@@ -146,21 +149,20 @@ class _CardListWidgetState extends State<CardListWidget> {
     List<Widget> cardList = [];
 
     for (int i = 0; i < widget.items.length; i++) {
-      double cardWidth =
-          getCardSize(widget.cardMaxWidth, i, widget.selectedIndex);
+      double cardWidth = getCardSize(widget.cardMaxWidth, i, selectedIndex);
       double cardHeight = cardWidth;
 
       Widget card = Positioned.directional(
           textDirection: TextDirection.ltr,
           top: getTopPositon(cardHeight, widget.cardMaxHeight),
           start: getStartPosition(cardWidth, widget.cardMaxWidth,
-              widget.viewWidth, i, widget.selectedIndex),
+              widget.viewWidth, i, selectedIndex),
           child: Opacity(
             opacity: getOpacity(i),
             child: Container(
               child: Center(
                 child: widget.items[i]
-                    .buildWidget((i.toDouble() - widget.selectedIndex).abs()),
+                    .buildWidget((i.toDouble() - selectedIndex).abs()),
               ),
               width: cardWidth,
               height: cardHeight,
@@ -191,7 +193,7 @@ class _CardListWidgetState extends State<CardListWidget> {
   }
 
   double getOpacity(int cardIndex) {
-    double diff = (widget.selectedIndex - cardIndex);
+    double diff = (selectedIndex - cardIndex);
 
     if (diff >= -2 && diff <= 2) {
       return 1.0;
