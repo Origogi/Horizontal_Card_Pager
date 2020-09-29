@@ -1,0 +1,48 @@
+name: vertical_card_pager_example
+description: Demonstrates how to use the vertical_card_pager plugin.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  horizontal_card_pager:
+    path: ../
+  cupertino_icons: ^0.1.3
+  clippy_flutter: ^1.1.1 
+  vertical_card_pager: ^1.3.0
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets: 
+    - images/
+    - images/role/
+    - images/akali/
+    - images/camile/
+    - images/ezreal/
+    - images/irelia/
+    - images/poppy/
+    - images/zoe/
+
+  fonts:
+    - family: "Bevan"
+      fonts:
+        - asset: fonts/Bevan-Regular.ttf
+    - family: "lol"
+      fonts:
+        - asset: fonts/Roboto-Medium.ttf
+        - asset: fonts/Friz Quadrata Std Italic.otf
+          style: italic
