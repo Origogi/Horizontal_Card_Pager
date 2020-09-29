@@ -13,3 +13,8 @@
 ## 0.3.0
 
 * Class Refactoring
+
+
+## 0.4.0
+
+* Enable Web

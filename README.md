@@ -10,7 +10,7 @@
       alt="Platform" />
   </a>
   <a href="https://pub.dev/packages/horizontal_card_pager">
-   <img src="https://img.shields.io/badge/pub-v0.3.0-blue" />
+   <img src="https://img.shields.io/badge/pub-v0.4.0-blue" />
 </a>
 </div>
   
