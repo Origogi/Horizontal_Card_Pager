@@ -1,6 +1,6 @@
 name: horizontal_card_pager
 description: Use dynamic and beautiful card view pagers (horizontal direction) to help you create great apps.
-version: 0.4.0
+version: 1.0.0
 homepage: https://github.com/Origogi/Horizontal_Card_Pager
 
 environment:

@@ -14,7 +14,10 @@
 
 * Class Refactoring
 
-
 ## 0.4.0
 
 * Enable Web
+
+## 0.4.0
+
+* Release stable version

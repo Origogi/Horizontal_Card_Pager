@@ -10,13 +10,15 @@
       alt="Platform" />
   </a>
   <a href="https://pub.dev/packages/horizontal_card_pager">
-   <img src="https://img.shields.io/badge/pub-v0.4.0-blue" />
+   <img src="https://img.shields.io/badge/pub-v1.0.0-blue" />
 </a>
 </div>
   
 Use dynamic and beautiful card view pagers (horizontal direction) to help you create great apps.
 
 ## Preview
+
+### Mobile
 
 <div align="center">
     <img src="https://user-images.githubusercontent.com/35194820/90704450-73f69600-e2cb-11ea-85bc-e3e6b702e30f.gif" width="190">
@@ -33,13 +35,27 @@ Use dynamic and beautiful card view pagers (horizontal direction) to help you cr
 </a>
 </div>
 
+### Web
+
+<div align="center">
+    <img src="https://user-images.githubusercontent.com/35194820/94567342-55aa8f80-02a6-11eb-9433-d010792e57b1.png">
+</div>
+
+<div align="center">
+   + <A href="https://origogi.github.io/Horizontal_Card_Pager/#/">Web Link</A>
+
+</div>
+
+
+## Installing
+
 1. Add dependency to `pubspec.yaml`
 
     *Get the latest version in the 'Installing' tab on pub.dartlang.org*
     
 ```dart
 dependencies:
-    horizontal_card_pager: ^0.3.0
+    horizontal_card_pager: ^1.0.0
 ```
 
 2. Import the package
