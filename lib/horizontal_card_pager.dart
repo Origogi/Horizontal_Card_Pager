@@ -10,6 +10,7 @@ class HorizontalCardPager extends StatefulWidget {
   final List<CardItem> items;
   final PageChangedCallback onPageChanged;
   final PageSelectedCallback onSelectedItem;
+  // Set initial index
   final int initialPage;
 
   HorizontalCardPager(
@@ -23,23 +24,23 @@ class HorizontalCardPager extends StatefulWidget {
 }
 
 class _HorizontalCardPagerState extends State<HorizontalCardPager> {
-  bool isScrolling = false;
-  double currentPosition;
-  PageController controller;
+  bool _isScrolling = false;
+  double _currentPosition;
+  PageController _controller;
 
   @override
   void initState() {
     super.initState();
 
-    currentPosition = widget.initialPage.toDouble();
-    controller = PageController(initialPage: widget.initialPage);
+    _currentPosition = widget.initialPage.toDouble();
+    _controller = PageController(initialPage: widget.initialPage);
 
-    controller.addListener(() {
+    _controller.addListener(() {
       setState(() {
-        currentPosition = controller.page;
+        _currentPosition = _controller.page;
 
         if (widget.onPageChanged != null) {
-          Future(() => widget.onPageChanged(currentPosition));
+          Future(() => widget.onPageChanged(_currentPosition));
         }
       });
     });
@@ -56,23 +57,23 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
 
       return GestureDetector(
           onHorizontalDragEnd: (details) {
-            isScrolling = false;
+            _isScrolling = false;
           },
           onHorizontalDragStart: (details) {
-            isScrolling = true;
+            _isScrolling = true;
           },
           onTapUp: (details) {
-            if ((currentPosition - currentPosition.floor()).abs() <= 0.15) {
-              int selectedIndex = onTapUp(
-                  context, viewHeight, viewWidth, currentPosition, details);
+            if ((_currentPosition - _currentPosition.floor()).abs() <= 0.15) {
+              int selectedIndex = _onTapUp(
+                  context, viewHeight, viewWidth, _currentPosition, details);
 
               if (selectedIndex == 2) {
                 if (widget.onSelectedItem != null) {
-                  Future(() => widget.onSelectedItem(currentPosition.round()));
+                  Future(() => widget.onSelectedItem(_currentPosition.round()));
                 }
               } else if (selectedIndex >= 0) {
-                int goToPage = currentPosition.toInt() + selectedIndex - 2;
-                controller.animateToPage(goToPage,
+                int goToPage = _currentPosition.toInt() + selectedIndex - 2;
+                _controller.animateToPage(goToPage,
                     duration: Duration(milliseconds: 300),
                     curve: Curves.easeInOutExpo);
               }
@@ -80,25 +81,25 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
           },
           child: CardListWidget(
             items: widget.items,
-            controller: controller,
+            controller: _controller,
             viewWidth: viewWidth,
-            selectedIndex: currentPosition,
+            selectedIndex: _currentPosition,
             cardMaxHeight: cardMaxHeight,
             cardMaxWidth: cardMaxWidth,
           ));
     });
   }
 
-  int onTapUp(context, cardMaxWidth, viewWidth, currentPosition, details) {
+  int _onTapUp(context, cardMaxWidth, viewWidth, currentPosition, details) {
     final RenderBox box = context.findRenderObject();
     final Offset localOffset = box.globalToLocal(details.globalPosition);
 
     double dx = localOffset.dx;
 
     for (int i = 0; i < 5; i++) {
-      double cardWidth = getCardSize(cardMaxWidth, i, 2.0);
+      double cardWidth = _getCardSize(cardMaxWidth, i, 2.0);
       double left =
-          getStartPosition(cardWidth, cardMaxWidth, viewWidth, i, 2.0);
+          _getStartPosition(cardWidth, cardMaxWidth, viewWidth, i, 2.0);
 
       if (left <= dx && dx <= left + cardWidth) {
         return i;
@@ -149,16 +150,16 @@ class _CardListWidgetState extends State<CardListWidget> {
     List<Widget> cardList = [];
 
     for (int i = 0; i < widget.items.length; i++) {
-      double cardWidth = getCardSize(widget.cardMaxWidth, i, selectedIndex);
+      double cardWidth = _getCardSize(widget.cardMaxWidth, i, selectedIndex);
       double cardHeight = cardWidth;
 
       Widget card = Positioned.directional(
           textDirection: TextDirection.ltr,
-          top: getTopPositon(cardHeight, widget.cardMaxHeight),
-          start: getStartPosition(cardWidth, widget.cardMaxWidth,
+          top: _getTopPositon(cardHeight, widget.cardMaxHeight),
+          start: _getStartPosition(cardWidth, widget.cardMaxWidth,
               widget.viewWidth, i, selectedIndex),
           child: Opacity(
-            opacity: getOpacity(i),
+            opacity: _getOpacity(i),
             child: Container(
               child: Center(
                 child: widget.items[i]
@@ -192,7 +193,7 @@ class _CardListWidgetState extends State<CardListWidget> {
     ]);
   }
 
-  double getOpacity(int cardIndex) {
+  double _getOpacity(int cardIndex) {
     double diff = (selectedIndex - cardIndex);
 
     if (diff >= -2 && diff <= 2) {
@@ -207,12 +208,12 @@ class _CardListWidgetState extends State<CardListWidget> {
   }
 }
 
-double getTopPositon(double cardHeigth, double viewHeight) {
+double _getTopPositon(double cardHeigth, double viewHeight) {
   return (viewHeight - cardHeigth) / 2;
 }
 
-double getStartPosition(double cardWidth, double cardMaxWidth, double viewWidth,
-    int cardIndex, double selectedIndex) {
+double _getStartPosition(double cardWidth, double cardMaxWidth,
+    double viewWidth, int cardIndex, double selectedIndex) {
   double diff = (selectedIndex - cardIndex);
   double diffAbs = diff.abs();
 
@@ -246,7 +247,7 @@ double getStartPosition(double cardWidth, double cardMaxWidth, double viewWidth,
   }
 }
 
-double getCardSize(double cardMaxWidth, int cardIndex, double selectedIndex) {
+double _getCardSize(double cardMaxWidth, int cardIndex, double selectedIndex) {
   double diff = (selectedIndex - cardIndex).abs();
 
   if (diff >= 0.0 && diff < 1.0) {
