@@ -18,6 +18,10 @@
 
 * Enable Web
 
-## 0.4.0
+## 1.0.0
 
 * Release stable version
+
+## 1.0.1
+
+* Fix readme
