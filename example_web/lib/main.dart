@@ -37,6 +37,15 @@ class _MyHomePageState extends State<MyHomePage> {
   double currentSkinOpacity = 1.0;
   double nextSkinOpacity = 1.0;
 
+  List skinNames = [
+    "BLACK SMITH POPPY",
+    "NOXUS POPPY",
+    "CLASSIC",
+    "BATTLE REGALIA POPPY",
+    "STAR GUARDIAN POPPY",
+    "HEXTECH PPOPY"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,29 +74,58 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: HorizontalCardPager(
-                  items: getSkinImageItems(champion.toLowerCase(), 6),
-                  onPageChanged: (page) {
-                    setState(() {
-                      if ((page - currentSkinIndex.toDouble()).abs() >= 1) {
-                        currentSkinIndex = nextSkinIndex;
-                        currentSkinOpacity = 1.0;
-                        nextSkinOpacity = 0;
-                      } else if (page > currentSkinIndex) {
-                        nextSkinIndex = currentSkinIndex + 1;
-                        nextSkinOpacity = page - currentSkinIndex.toDouble();
-                        currentSkinOpacity = 1 - nextSkinOpacity;
-                      } else if (page < currentSkinIndex) {
-                        nextSkinIndex = currentSkinIndex - 1;
-                        nextSkinOpacity = currentSkinIndex.toDouble() - page;
-                        currentSkinOpacity = 1.0 - nextSkinOpacity;
-                      }
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Opacity(
+                              opacity: currentSkinOpacity,
+                              child: Text(skinNames[currentSkinIndex],
+                                  textAlign: TextAlign.center,
+                                  style: textTheme.headline1)),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Opacity(
+                              opacity: nextSkinOpacity,
+                              child: Text(
+                                skinNames[nextSkinIndex],
+                                style: textTheme.headline1,
+                                textAlign: TextAlign.center,
+                              )),
+                        ),
+                      ],
+                    ),
+                    HorizontalCardPager(
+                      items: getSkinImageItems(champion.toLowerCase(), 6),
+                      onPageChanged: (page) {
+                        setState(() {
+                          if ((page - currentSkinIndex.toDouble()).abs() >= 1) {
+                            currentSkinIndex = nextSkinIndex;
+                            currentSkinOpacity = 1.0;
+                            nextSkinOpacity = 0;
+                          } else if (page > currentSkinIndex) {
+                            nextSkinIndex = currentSkinIndex + 1;
+                            nextSkinOpacity =
+                                page - currentSkinIndex.toDouble();
+                            currentSkinOpacity = 1 - nextSkinOpacity;
+                          } else if (page < currentSkinIndex) {
+                            nextSkinIndex = currentSkinIndex - 1;
+                            nextSkinOpacity =
+                                currentSkinIndex.toDouble() - page;
+                            currentSkinOpacity = 1.0 - nextSkinOpacity;
+                          }
 
-                      print(currentSkinOpacity.toString() +
-                          "/" +
-                          nextSkinOpacity.toString());
-                    });
-                  },
+                          print(currentSkinOpacity.toString() +
+                              "/" +
+                              nextSkinOpacity.toString());
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
