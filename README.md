@@ -10,7 +10,7 @@
       alt="Platform" />
   </a>
   <a href="https://pub.dev/packages/horizontal_card_pager">
-   <img src="https://img.shields.io/badge/pub-v1.0.1-blue" />
+   <img src="https://img.shields.io/badge/pub-v1.0.3-blue" />
 </a>
 </div>
   
@@ -31,7 +31,7 @@ Use dynamic and beautiful card view pagers (horizontal direction) to help you cr
 </a>
 </div>
 <div align="center">
-   + <A href="https://github.com/Origogi/Vertical_Card_Pager">Vertical Card Pager </A>
+   <A href="https://github.com/Origogi/Vertical_Card_Pager">Vertical Card Pager </A>
 </a>
 </div>
 
@@ -39,13 +39,12 @@ Use dynamic and beautiful card view pagers (horizontal direction) to help you cr
 
 <div align="center">
     <img src="https://user-images.githubusercontent.com/35194820/94567342-55aa8f80-02a6-11eb-9433-d010792e57b1.png">
+</a>
 </div>
 
 <div align="center">
-   + <A href="https://origogi.github.io/Horizontal_Card_Pager/#/">Web Link</A>
-
+   <A href="https://origogi.github.io/Horizontal_Card_Pager/#/">Web Link</A>
 </div>
-
 
 ## Installing
 
@@ -55,7 +54,7 @@ Use dynamic and beautiful card view pagers (horizontal direction) to help you cr
     
 ```dart
 dependencies:
-    horizontal_card_pager: ^1.0.1
+    horizontal_card_pager: ^1.0.2
 ```
 
 2. Import the package

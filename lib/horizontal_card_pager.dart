@@ -63,6 +63,10 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
             _isScrolling = true;
           },
           onTapUp: (details) {
+            if (_isScrolling == true) {
+              return;
+            }
+
             if ((_currentPosition - _currentPosition.floor()).abs() <= 0.15) {
               int selectedIndex = _onTapUp(
                   context, viewHeight, viewWidth, _currentPosition, details);

@@ -25,3 +25,11 @@
 ## 1.0.1
 
 * Fix readme
+
+## 1.0.2
+
+* Refactorying intercal code
+
+## 1.0.3
+
+* Fix readme
