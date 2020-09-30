@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List skinNames = [
     "BLACK SMITH POPPY",
     "NOXUS POPPY",
-    "CLASSIC",
+    "POPPY",
     "BATTLE REGALIA POPPY",
     "STAR GUARDIAN POPPY",
     "HEXTECH PPOPY"
@@ -101,6 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     HorizontalCardPager(
                       items: getSkinImageItems(champion.toLowerCase(), 6),
+                      onSelectedItem: (page) {
+                        print(page);
+                      },
                       onPageChanged: (page) {
                         setState(() {
                           if ((page - currentSkinIndex.toDouble()).abs() >= 1) {
@@ -118,10 +121,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 currentSkinIndex.toDouble() - page;
                             currentSkinOpacity = 1.0 - nextSkinOpacity;
                           }
-
-                          print(currentSkinOpacity.toString() +
-                              "/" +
-                              nextSkinOpacity.toString());
                         });
                       },
                     ),
