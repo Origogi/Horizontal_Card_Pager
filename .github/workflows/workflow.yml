@@ -1,4 +1,4 @@
-name: Flutter Web
+name: Flutter Test Web
 on:
   push:
     branches:
