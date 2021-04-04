@@ -33,3 +33,7 @@
 ## 1.0.3
 
 * Fix readme
+
+## 1.1.0
+
+* Dart null-safety mirgation
