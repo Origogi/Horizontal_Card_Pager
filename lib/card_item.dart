@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class CardItem {
-  Widget buildWidget(double diffPosition);
+  Widget? buildWidget(double diffPosition);
 }
 
 class ImageCarditem extends CardItem {
-  final Widget image;
+  final Widget? image;
 
   ImageCarditem({this.image});
 
   @override
-  Widget buildWidget(double diffPosition) {
+  Widget? buildWidget(double diffPosition) {
     return image;
   }
 }
 
 class IconTitleCardItem extends CardItem {
-  final IconData iconData;
-  final String text;
+  final IconData? iconData;
+  final String? text;
   final Color selectedBgColor;
   final Color noSelectedBgColor;
   final Color selectedIconTextColor;
@@ -76,7 +76,7 @@ class IconTitleCardItem extends CardItem {
                 FittedBox(
                   fit: BoxFit.fitHeight,
                   child: Text(
-                    text,
+                    text!,
                     style:
                         TextStyle(fontSize: 15, color: selectedIconTextColor),
                   ),
