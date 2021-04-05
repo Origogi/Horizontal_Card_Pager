@@ -37,3 +37,7 @@
 ## 1.1.0
 
 * Dart null-safety mirgation
+
+## 1.1.1
+
+* Fix bug
