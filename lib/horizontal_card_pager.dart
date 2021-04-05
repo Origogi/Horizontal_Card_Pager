@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import 'card_item.dart';
 
-typedef PageChangedCallback = void Function(double? page);
+typedef PageChangedCallback = void Function(double page);
 typedef PageSelectedCallback = void Function(int index);
 
 class HorizontalCardPager extends StatefulWidget {
@@ -40,7 +40,7 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
         _currentPosition = _controller!.page;
 
         if (widget.onPageChanged != null) {
-          Future(() => widget.onPageChanged!(_currentPosition));
+          Future(() => widget.onPageChanged!(_currentPosition!));
         }
       });
     });
@@ -73,7 +73,8 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
 
               if (selectedIndex == 2) {
                 if (widget.onSelectedItem != null) {
-                  Future(() => widget.onSelectedItem!(_currentPosition!.round()));
+                  Future(
+                      () => widget.onSelectedItem!(_currentPosition!.round()));
                 }
               } else if (selectedIndex >= 0) {
                 int goToPage = _currentPosition!.toInt() + selectedIndex - 2;
@@ -257,7 +258,9 @@ double _getCardSize(double? cardMaxWidth, int cardIndex, double selectedIndex) {
   if (diff >= 0.0 && diff < 1.0) {
     return cardMaxWidth! - cardMaxWidth * (1 / 5) * ((diff - diff.floor()));
   } else if (diff >= 1.0 && diff < 2.0) {
-    return cardMaxWidth! - cardMaxWidth * (1 / 5) - 10 * ((diff - diff.floor()));
+    return cardMaxWidth! -
+        cardMaxWidth * (1 / 5) -
+        10 * ((diff - diff.floor()));
   } else if (diff >= 2.0 && diff < 3.0) {
     final size = cardMaxWidth! -
         cardMaxWidth * (1 / 5) -
