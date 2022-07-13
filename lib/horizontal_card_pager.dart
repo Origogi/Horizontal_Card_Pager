@@ -10,6 +10,7 @@ class HorizontalCardPager extends StatefulWidget {
   final List<CardItem>? items;
   final PageChangedCallback? onPageChanged;
   final PageSelectedCallback? onSelectedItem;
+  final double width;
   // Set initial index
   final int initialPage;
 
@@ -17,7 +18,7 @@ class HorizontalCardPager extends StatefulWidget {
       {this.items,
       this.onPageChanged,
       this.initialPage = 2,
-      this.onSelectedItem});
+      this.onSelectedItem, this.width = 5});
 
   @override
   _HorizontalCardPagerState createState() => _HorizontalCardPagerState();
@@ -50,7 +51,7 @@ class _HorizontalCardPagerState extends State<HorizontalCardPager> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       double viewWidth = constraints.maxWidth;
-      double viewHeight = viewWidth / 5.0;
+      double viewHeight = viewWidth / widget.width;
 
       double cardMaxWidth = viewHeight;
       double cardMaxHeight = cardMaxWidth;
